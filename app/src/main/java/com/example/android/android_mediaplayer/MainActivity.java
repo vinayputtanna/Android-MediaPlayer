@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mediaPlayer=MediaPlayer.create(this, R.raw.shuffle);
+        mediaPlayer=MediaPlayer.create(this, R.raw.phrase_where_are_you_going);
 
         final Button playButton=(Button)findViewById(R.id.play);
         final Button pauseButton=(Button)findViewById(R.id.pause);
@@ -26,6 +27,12 @@ public class MainActivity extends AppCompatActivity {
                 mediaPlayer.start();
                 playButton.setEnabled(false);
                 pauseButton.setEnabled(true);
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        Toast.makeText(MainActivity.this, "Song completed!", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         });
