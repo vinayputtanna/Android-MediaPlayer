@@ -9,24 +9,30 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mediaPlayer=MediaPlayer.create(this, R.raw.phrase_where_are_you_going);
+        // create MediaPlayer object and set the music file to be played from res\raw folder
+        mediaPlayer=MediaPlayer.create(this, R.raw.shuffle);
 
         final Button playButton=(Button)findViewById(R.id.play);
         final Button pauseButton=(Button)findViewById(R.id.pause);
         final Button seekButton=(Button)findViewById(R.id.seek);
+
+        /**
+         * Set OnClickListener interface on play button
+         */
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mediaPlayer.start();
                 playButton.setEnabled(false);
                 pauseButton.setEnabled(true);
+                seekButton.setEnabled(true);
                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
@@ -37,17 +43,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        /**
+         * Set OnClickListener interface on pause button
+         */
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mediaPlayer.pause();
                 playButton.setEnabled(true);
                 pauseButton.setEnabled(false);
+                seekButton.setEnabled(false);
 
             }
         });
 
+        /**
+         * Set OnClickListener interface on seek button
+         */
         seekButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
